@@ -1,0 +1,26 @@
+
+node_modules/
+dist/
+build/
+.env
+*.log
+
+# Node / Vite / TypeScript
+node_modules/
+dist/
+.turbo/
+.cache/
+*.log
+
+# Env and local config
+.env
+.env.*
+
+# Editor/OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Tests/coverage
+coverage/
