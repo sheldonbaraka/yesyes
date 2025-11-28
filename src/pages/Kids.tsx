@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useStore } from '../store'
-import { initiateMpesaDeposit, initiateMpesaWithdraw, initiateCardDeposit, paymentsDemo } from '../payments'
+import { initiateMpesaDeposit, initiateMpesaWithdraw, initiateCardDeposit, paymentsDemo, type PaymentResult } from '../payments'
 
 function isoDate(y: number, m: number, d: number) {
   const mm = String(m).padStart(2, '0')
@@ -219,7 +219,7 @@ export default function Kids() {
     setMoneyTxns(pendingList)
     try { localStorage.setItem(`ufp-pocket-money:${selectedKidId}`, JSON.stringify(pendingList)) } catch {}
 
-    let result
+    let result: PaymentResult
     try {
       if (payMethod === 'mpesa') {
         if (!mpesaPhone.trim()) { throw new Error('Phone number required for MPesa') }

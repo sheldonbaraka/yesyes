@@ -41,7 +41,7 @@ export async function initiateMpesaWithdraw(params: { amount: number; phone: str
     })
     if (!r.ok) throw new Error('MPesa withdraw failed')
     const json = await r.json()
-    return { status: json.status ?? 'succeeded', reference: json.reference }
+    return { status: (json.status as PaymentResult['status']) ?? 'succeeded', reference: json.reference }
   } catch (e) {
     return { status: 'failed', message: (e as Error).message }
   }
@@ -58,7 +58,7 @@ export async function initiateCardDeposit(params: { amount: number; kidId: strin
     })
     if (!r.ok) throw new Error('Card deposit failed')
     const json = await r.json()
-    return { status: json.status ?? 'succeeded', reference: json.reference }
+    return { status: (json.status as PaymentResult['status']) ?? 'succeeded', reference: json.reference }
   } catch (e) {
     return { status: 'failed', message: (e as Error).message }
   }
@@ -70,7 +70,7 @@ export async function checkMpesaStatus(reference: string) : Promise<PaymentResul
     const r = await fetch(`/api/payments/mpesa/status/${encodeURIComponent(reference)}`)
     if (!r.ok) throw new Error('Status check failed')
     const json = await r.json()
-    return { status: json.status, reference, message: json.error }
+    return { status: (json.status as PaymentResult['status']), reference, message: json.error }
   } catch (e) {
     return { status: 'failed', reference, message: (e as Error).message }
   }
